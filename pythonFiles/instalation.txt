@@ -1,0 +1,7 @@
+Variables de entorno en el buscador de windows
+opciones avanzadas => variables de entorno => Path => editar => nuevo => 
+pegar C:\Users\nfabi\AppData\Local\Programs\Python\Python310\ => subir a la primera posicion
+
+pip
+enviariables de entorno => Path => editar => nuevo => 
+pegar C:\Users\nfabi\AppData\Local\Programs\Python\Python310\Scripts => subir a segunda posicion
