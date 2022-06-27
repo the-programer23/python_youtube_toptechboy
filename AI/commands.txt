@@ -1,0 +1,27 @@
+Running different version of python
+    py -version
+
+Install package on a python version
+    pipVersionNumber install packageName, e.g. pip3.9 install pyserial
+
+Install package
+    pip install packageName 
+
+Take to home directory in PowerShell running as administrator
+    cd ~
+
+Create an Python Enviroment Variable
+    1. Navigate to the python folder and type in the console py -pythonVersionNumber -m venv folderName
+    2. set-executionpolicy remotesigned -Scope CurrentUser (This is only done once)
+    3. folderName/Scripts/activate
+
+Leave virtual enviroment
+    deactivate
+
+Remove python enviroment directory:
+    rmdir folderName, e.g. rmdir pyAI
+
+Select Python Interpreter:
+    ctrl + shift + p 
+    python: select interpreter
+   
