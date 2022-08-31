@@ -35,19 +35,18 @@ def onTrack8(val):
     hueHigh2 = val      
     print("hueHigh2: ",hueHigh2)            
 
-
 width=640
 height=360
 
 cam=cv2.VideoCapture(0,cv2.CAP_DSHOW)
 cam.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 cam.set(cv2.CAP_PROP_FRAME_HEIGHT,height)
-cam.set(cv2.CAP_PROP_FPS, 30)
-cam.set(cv2.CAP_PROP_FOURCC,cv2.VideoWriter_fourcc(*'MJPG'))
+# cam.set(cv2.CAP_PROP_FPS, 30)
+# cam.set(cv2.CAP_PROP_FOURCC,cv2.VideoWriter_fourcc(*'MJPG'))
 
 cv2.namedWindow('myTracker')
 cv2.moveWindow('myTracker',width,0)
-cv2.resizeWindow('myTracker',int(width/2),height-30)
+cv2.resizeWindow('myTracker',int(width/2),height+90)
 
 hueLow=10
 hueHigh=20
@@ -58,16 +57,16 @@ satHigh=250
 valLow=10
 valHigh=250
 
-cv2.createTrackbar('Hue low','myTracker',90,179,onTrack1)
 #the callback function is called automatically after running the program.
-cv2.createTrackbar('Hue high','myTracker',152,179,onTrack2)
-cv2.createTrackbar('Hue low 2','myTracker',10, 179,onTrack7)
-cv2.createTrackbar('Hue high 2','myTracker',20, 179,onTrack8)
-cv2.createTrackbar('Sat low','myTracker',165,255,onTrack3)
-cv2.createTrackbar('Sat high','myTracker',255,255,onTrack4)
-cv2.createTrackbar('Val low','myTracker',111,255,onTrack5)
 # if the start value send to createTrackbar func is 0 the callback func is no called automatically after clicking the run btn
-cv2.createTrackbar('Val high','myTracker',255,255,onTrack6)
+cv2.createTrackbar('Hue low','myTracker',90,179,onTrack1)
+cv2.createTrackbar('Hue high','myTracker',152,179,onTrack2)
+cv2.createTrackbar('Hue low 2','myTracker',35, 179,onTrack7)
+cv2.createTrackbar('Hue high 2','myTracker',58, 179,onTrack8)
+cv2.createTrackbar('Sat low','myTracker',36,255,onTrack3)
+cv2.createTrackbar('Sat high','myTracker',166,255,onTrack4)
+cv2.createTrackbar('Val low','myTracker',63,255,onTrack5)
+cv2.createTrackbar('Val high','myTracker',148,255,onTrack6)
 
 while True:
     ignore, frame = cam.read()
@@ -96,14 +95,28 @@ while True:
     cv2.imshow('My Mask2',myMask2Small)
     cv2.moveWindow('My Mask2',int((width/2*2)),height+30)
 
-    # myMaskComposite = myMask | myMask2
-    # using a pipe or calling the add function produce the same result.
-    myMaskComposite = cv2.add(myMask,myMask2)
+    myMaskComposite = myMask | myMask2
+    # myMaskComposite = cv2.add(myMask,myMask2)
 
-    myObject=cv2.bitwise_and(frame,frame,mask=myMaskComposite)
-    myObjectSmall=cv2.resize(myObject,(int(width/2),int(height/2)))  
-    cv2.imshow('My Object',myObjectSmall)
-    cv2.moveWindow('My Object',int(width/2),height+30)
+    #if there is a blue circle, whithin it is a red circle and whithin it a blue circle the RETR_EXTERNAL retreives the params of the bigger blue circle
+    #becuase we do not want every single pixel all the way aroud the object CHAIN_APPROX_SIMPLE gives us an aproximation with fewer pixels 
+    contours,junk=cv2.findContours(myMaskComposite,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+    for contour in contours:
+        area=cv2.contourArea(contour)
+        if area >= 200: 
+            # -1 means draw all countours 0 means draw the first cotour 1 would draw the second contour
+            # cv2.drawContours(frame,[contour],0,(255,0,0),3)
+            x,y,w,h=cv2.boundingRect(contour)
+            print(x)
+            print(y)
+            print(w)
+            print(h)
+            print("=========")
+            cv2.rectangle(frame,(x,y),(x+w,y+h),(0,0,255),3)
+    # myObject=cv2.bitwise_and(frame,frame,mask=myMaskComposite)
+    # myObjectSmall=cv2.resize(myObject,(int(width/2),int(height/2)))  
+    # cv2.imshow('My Object',myObjectSmall)
+    # cv2.moveWindow('My Object',int(width/2),height+30)
  
     cv2.imshow('my WEBcam', frame)
     cv2.moveWindow('my WEBcam',0,0)
