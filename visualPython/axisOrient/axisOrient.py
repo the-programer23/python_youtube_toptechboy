@@ -18,4 +18,4 @@ while True:
         pointerArrow.length = arrowLength
     for myAngle in np.linspace(0,2*np.pi,1000):
         rate(50)
-        pointerArrow.axis = vector(0,0,)  
+        pointerArrow.axis = vector(0,0,1)  

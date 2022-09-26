@@ -1,3 +1,6 @@
+Take to home directory in PowerShell running as administrator
+    cd ~
+
 Running different version of python
     py -version
 
@@ -7,13 +10,12 @@ Install package on a python version
 Install package
     pip install packageName 
 
-Take to home directory in PowerShell running as administrator
-    cd ~
-
 Create an Python Enviroment Variable
-    1. Navigate to the python folder and type in the console py -pythonVersionNumber -m venv folderName
+    1. Navigate to the python folder and type in the console py -pythonVersionNumber(e.g. -3.7) -m venv folderName
     2. set-executionpolicy remotesigned -Scope CurrentUser (This is only done once)
-    3. folderName/Scripts/activate
+    Activate virtual enviroment in the terminal
+        3. virtualEnvoromentFolderName/Scripts/activate
+    4. set-executionpolicy restricted -Scope CurrentUser (This is only done once)    
 
 Leave virtual enviroment
     deactivate
@@ -24,4 +26,11 @@ Remove python enviroment directory:
 Select Python Interpreter:
     ctrl + shift + p 
     python: select interpreter
+
+To Install Face Recognition Libraries:
+    pip install Cmake
+    pip install face_recognition==1.2.3
+
+Question to ask to Google in case I implement face_recognition on my app
+    how to run opencv dlib face recognition on graphics card   
    
