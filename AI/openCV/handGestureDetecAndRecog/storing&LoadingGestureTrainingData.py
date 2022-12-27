@@ -32,7 +32,7 @@ def findDistances(handData):
     #np.zeros creates an array of zeros so np.zeros([rows,columns],typeOfNumbers)
     distMatrix = np.zeros([len(handData),len(handData)],dtype='float')
     # print(distMatrix)
-    landMark0Xpos = handData[0][0]
+    landMark0Xpos = handData[0][0] 
     landMark9Xpos = handData[9][0]
     landMark0Ypos = handData[0][1]
     landMark9Ypos = handData[9][1]
