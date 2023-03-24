@@ -13,8 +13,16 @@ boxZ=.1
 
 #.9 removes 10% to boxY/2
 boxGap=.9*boxY/2
-myCase=box(color=color.white,size=vector(boxX,boxY,boxZ),pos=vector(0,boxGap,-boxZ/2-arrowWidth/2))
-myArrow=arrow(length=arrowLength,shaftwidth=arrowWidth,color=color.red,axis=vector(1,1,0))
+myCase=box(
+    color=color.white,
+    size=vector(boxX,boxY,boxZ),
+    pos=vector(0,boxGap,
+               -boxZ/2-arrowWidth/2))
+myArrow=arrow(
+    length=arrowLength,
+    shaftwidth=arrowWidth,
+    color=color.red,
+    axis=vector(1,1,0))
 
 tickX=.1
 tickY=.02
@@ -51,7 +59,7 @@ pivotLength=.02
 cylinder(length=pivotLength,radius=pivotRadius,color=color.red,axis=vector(0,0,1),pos=vector(0,0,-pivotLength/2))
 text(text='voltOmeter',color=color.green,pos=vector(0,1.5,0),height=.25,align='center')
 while True:
-    while arduinoData.inWaiting()==0:
+    while arduinoData.inWaiting()==0: # type: ignore
         pass
     potVal=arduinoData.readline()
     potVal=str(potVal,'utf-8')
